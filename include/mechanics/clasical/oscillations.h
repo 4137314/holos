@@ -4,39 +4,41 @@
 #include <gsl/gsl_vector.h>
 
 /* oscillations.h
-   Funzioni principali per oscillazioni meccaniche classiche.
-   Supporta moto armonico semplice, smorzato e forzato.
+   Main functions for classical mechanical oscillations.
+   Supports simple harmonic motion, damped oscillations, and forced oscillations.
 */
 
-/* Moto armonico semplice
+/* Simple harmonic motion
    x(t) = A * cos(omega * t + phi)
-   A: ampiezza
-   omega: pulsazione
-   phi: fase iniziale
+   A: amplitude
+   omega: angular frequency
+   phi: initial phase
 */
 void harmonic_motion(double A, double omega, double phi, double t, gsl_vector *x);
 
-/* Velocità nel moto armonico semplice
+/* Velocity in simple harmonic motion
    v(t) = -A * omega * sin(omega * t + phi)
 */
 void harmonic_velocity(double A, double omega, double phi, double t, gsl_vector *v);
 
-/* Accelerazione nel moto armonico semplice
+/* Acceleration in simple harmonic motion
    a(t) = -A * omega^2 * cos(omega * t + phi)
 */
 void harmonic_acceleration(double A, double omega, double phi, double t, gsl_vector *a);
 
-/* Moto armonico smorzato (damping)
+/* Damped harmonic motion
    x(t) = A * exp(-gamma * t) * cos(omega_d * t + phi)
-   gamma: coefficiente di smorzamento
-   omega_d: pulsazione smorzata
+   gamma: damping coefficient
+   omega_d: damped angular frequency
 */
 void damped_harmonic_motion(double A, double gamma, double omega_d,
                             double phi, double t, gsl_vector *x);
 
-/* Moto armonico forzato (sinusoidale)
-   x(t) = A * cos(omega * t) + (F0 / k) * cos(omega_f * t)
-   F0: forza esterna, k: costante elastica, omega_f: frequenza forzante
+/* Forced harmonic motion (sinusoidal forcing)
+   x(t) = A * cos(omega * t + phi) + (F0 / k) * cos(omega_f * t)
+   F0: external force
+   k: spring constant
+   omega_f: driving frequency
 */
 void forced_harmonic_motion(double A, double F0, double k, double omega, 
                             double omega_f, double phi, double t, gsl_vector *x);
