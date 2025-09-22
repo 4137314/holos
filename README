@@ -9,12 +9,29 @@ scientific data sharing.
 Features
 --------
 
-- Classical, analytical, quantum, and relativistic mechanics simulations.
-- Astrophysics and orbital dynamics modeling.
-- Electromagnetic field simulations.
-- Solid state, nuclear, and thermodynamics modules.
-- Extensible C codebase with GSL (GNU Scientific Library) support.
-- Peer-to-peer collaboration features for distributed scientific workflows.
+* **Comprehensive Physics Simulation**
+  - Classical, analytical, quantum, and relativistic mechanics.
+  - Astrophysics and orbital dynamics.
+  - Electromagnetic field theory.
+  - Nuclear physics, solid-state physics, and thermodynamics.
+
+* **Extensible Architecture**
+  - Modular C codebase with GNU Scientific Library (GSL) support.
+  - Runtime extensibility for user-defined physical models and technology projects.
+  - Project manager to create, organize, and maintain new models and workflows.
+
+* **Collaboration and Workflow**
+  - Peer-to-peer distributed scientific collaboration using GNUnet.
+  - Technology stacks for modular and reproducible creation of new scientific tools.
+
+* **Output and Documentation**
+  - Export to major physics and engineering data formats.
+  - Automatic LaTeX reports for simulations and technology results.
+  - Integrated code documentation and PDF manuals of included models.
+
+* **Interfaces and Usability**
+  - Multiple user interfaces: shell, CLI, TUI, and GUI.
+  - Modular compilation: build only what you need.
 
 Installation
 ------------
