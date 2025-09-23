@@ -1,5 +1,5 @@
 
-HOL0S - GNU Scientific Simulation and Engineering Modeling Framework
+HOL0S - Scientific Simulation and Engineering Modeling Framework
 ====================================================================
 
 Copyright (C) 2025  4137314 <holos@mail.com>
@@ -27,7 +27,7 @@ along with HOLOS.  If not, see <https://www.gnu.org/licenses/>.
 
 SYNOPSIS
 --------
-holos is a GNU scientific software platform for simulation, physical modeling, and engineering design. It provides a collaborative environment for scientific computation, peer-to-peer data sharing, and distributed computing.
+holos is a scientific software platform for simulation, physical modeling, and engineering design. It provides a collaborative environment for scientific computation, peer-to-peer data sharing, and distributed computing.
 
 FEATURES
 --------
