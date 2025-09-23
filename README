@@ -1,10 +1,9 @@
 HOL0S  - Scientific Simulation and Engineering Modeling Framework
 =================================================================
 
-Holos is a scientific software platform for simulation, physical modeling,
-and engineering design. It aims to provide researchers and engineers with
-a collaborative environment for scientific computation and peer-to-peer
-scientific data sharing.
+Holos is a scientific software platform for simulation, physical modeling, and engineering design.
+It provides researchers and engineers with a collaborative environment for scientific computation, peer-to-peer scientific data sharing, and decentralized distributed computing.
+The platform supports modular integration of physical models, engineering technologies, and collaborative workflows, enabling both data exchange and distributed computation across connected nodes.
 
 Features
 --------
