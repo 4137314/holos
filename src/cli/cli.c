@@ -73,7 +73,7 @@ int main(void) {
     char *input;
     printf("Holos Physics CLI (type 'help' for commands)\n");
 
-    while ((input = readline("holos> ")) != NULL) {
+    while ((input = readline("holos ~> ")) != NULL) {
         if (*input) add_history(input);
 
         if (strcmp(input, "quit") == 0) {
