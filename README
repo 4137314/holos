@@ -29,7 +29,7 @@ Features
   - Integrated code documentation and PDF manuals of included models.
 
 * **Interfaces and Usability**
-  - Multiple user interfaces: shell, CLI, TUI, and GUI.
+  - User interfaces gives a usefull CLI.
   - Modular compilation: build only what you need.
 
 Installation
