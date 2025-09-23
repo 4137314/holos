@@ -1,14 +1,27 @@
-/* src/p2p/p2p.c
- *
- * Minimal GNUnet-aware P2P helper for Holos
- *
- * Builds and runs even when GNUnet is not present (graceful fallback).
- *
- * To compile with GNUnet (example):
- *   gcc -DHAVE_GNUNET `pkg-config --cflags libgnunetutil` -o p2p p2p.c `pkg-config --libs libgnunetutil`
- *
- * If you use Autotools, add PKG_CHECK_MODULES for gnunet in configure.ac and add -DHAVE_GNUNET.
- */
+/* p2p.c - GNUnet-aware P2P helper for HOLOS
+    Copyright (C) 2025  4137314 <holos@mail.com>
+
+    This file is part of HOLOS.
+
+    HOLOS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    HOLOS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with HOLOS.  If not, see <https://www.gnu.org/licenses/>.
+
+    ----------------------------------------------------------------------
+    Minimal GNUnet-aware P2P helper for HOLOS.
+    - Builds and runs even when GNUnet is not present (graceful fallback).
+    - To compile with GNUnet: use -DHAVE_GNUNET and link with gnunetutil.
+    - If using Autotools, add PKG_CHECK_MODULES for gnunet in configure.ac.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,9 +44,11 @@ static void int_handler(int signo) {
     keep_running = 0;
 }
 
+
 /* ---------------- Generic fallback implementations ---------------- */
 
 #ifndef HAVE_GNUNET
+
 
 /* If GNUnet not available, provide no-op implementations so program still builds. */
 
@@ -63,11 +78,11 @@ int p2p_subscribe_topic(const char *topic) {
 
 #else /* HAVE_GNUNET */
 
+
 /* ---------------- GNUnet-enabled implementations ----------------
- *
- * These use typical GNUnet util APIs. The exact function names and usage
- * may change by version: adapt if your installed GNUnet exposes different headers.
- */
+    These use typical GNUnet util APIs. The exact function names and usage
+    may change by version: adapt if your installed GNUnet exposes different headers.
+*/
 
 /* Global GNUnet objects (simple program-level usage) */
 static struct GNUNET_CONFIGURATION_Handle *g_cfg = NULL;
@@ -79,7 +94,10 @@ static void p2p_setup_logging(void) {
     GNUNET_log_setup("holos-p2p", "INFO", NULL);
 }
 
-/* Initialize GNUnet configuration and scheduler */
+/*
+    Initialize GNUnet configuration and scheduler.
+    Returns 0 on success, -1 on error.
+*/
 int p2p_init(void) {
     p2p_setup_logging();
 
@@ -115,7 +133,9 @@ int p2p_init(void) {
     return 0;
 }
 
-/* Shutdown and cleanup */
+/*
+    Shutdown and cleanup GNUnet resources.
+*/
 void p2p_shutdown(void) {
     if (g_sched) {
         GNUNET_SCHEDULER_destroy(g_sched);
@@ -128,9 +148,10 @@ void p2p_shutdown(void) {
     GNUNET_log_shutdown();
 }
 
-/* Example: simple peerinfo callback. This function signature is a sketch: adapt
- * the types to the exact GNUNET_PEERINFO_iterator callback your version expects.
- */
+/*
+    Example: simple peerinfo callback. This function signature is a sketch: adapt
+    the types to the exact GNUNET_PEERINFO_iterator callback your version expects.
+*/
 static void peerinfo_callback(void *cls,
         const struct GNUNET_PeerIdentity *peer,
         const struct GNUNET_HELLO_Address *address,
@@ -156,7 +177,10 @@ static void peerinfo_callback(void *cls,
     }
 }
 
-/* List peers (example using peerinfo service) */
+/*
+    List peers (example using peerinfo service).
+    Returns 0 on success, -1 on error.
+*/
 int p2p_list_peers(void) {
     if (!g_cfg) {
         fprintf(stderr, "[p2p] not initialized\n");
@@ -181,10 +205,12 @@ int p2p_list_peers(void) {
     return 0;
 }
 
-/* Simplified publish/subscribe placeholders:
- * A full implementation would use GNUNET core messaging services (e.g. GNUNET_MESSAGE_* or a service plugin).
- * Here we show a stub that demonstrates intent and where to call GNUnet APIs.
- */
+
+/*
+    Simplified publish/subscribe placeholders:
+    A full implementation would use GNUNET core messaging services (e.g. GNUNET_MESSAGE_* or a service plugin).
+    Here we show a stub that demonstrates intent and where to call GNUnet APIs.
+*/
 
 int p2p_publish_message(const char *topic, const char *msg) {
     if (!g_cfg) return -1;
@@ -212,6 +238,9 @@ int p2p_subscribe_topic(const char *topic) {
 
 /* ---------------- small CLI for testing ---------------- */
 
+/*
+   Print usage information for the p2p CLI.
+*/
 static void usage(const char *prog) {
     fprintf(stderr,
             "Usage: %s [command]\n"
@@ -222,6 +251,7 @@ static void usage(const char *prog) {
             "  subscribe TOPIC     Subscribe to a topic (placeholder)\n"
             "  quit\n", prog);
 }
+
 
 int main(int argc, char *argv[]) {
     (void)argc;
@@ -236,13 +266,13 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "[p2p] initialization failed (running in degraded mode)\n");
     }
 
-    /* Very small REPL */
+    /* Simple REPL for demonstration */
     char line[1024];
     while (keep_running) {
         printf("p2p> ");
         if (!fgets(line, sizeof(line), stdin)) break;
 
-        /* strip newline */
+        /* Strip newline */
         line[strcspn(line, "\r\n")] = '\0';
         if (line[0] == '\0') continue;
 
