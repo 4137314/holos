@@ -1,98 +1,99 @@
-HOL0S  - Scientific Simulation and Engineering Modeling Framework
-=================================================================
 
-Holos is a scientific software platform for simulation, physical modeling, and engineering design.
-It provides researchers and engineers with a collaborative environment for scientific computation, peer-to-peer scientific data sharing, and decentralized distributed computing.
-The platform supports modular integration of physical models, engineering technologies, and collaborative workflows, enabling both data exchange and distributed computation across connected nodes.
+HOL0S - GNU Scientific Simulation and Engineering Modeling Framework
+====================================================================
 
-Features
+Copyright (C) 2025  4137314 <holos@mail.com>
+This file is part of HOLOS.
+
+HOLOS is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+HOLOS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with HOLOS.  If not, see <https://www.gnu.org/licenses/>.
+
+-------------------------------------------------------------------------------
+* Name:        holos
+* Version:     0.1
+* Author:      4137314 <holos@mail.com>
+* Homepage:    https://github.com/4137314/holos
+-------------------------------------------------------------------------------
+
+SYNOPSIS
 --------
+holos is a GNU scientific software platform for simulation, physical modeling, and engineering design. It provides a collaborative environment for scientific computation, peer-to-peer data sharing, and distributed computing.
 
-* **Comprehensive Physics Simulation**
-  - Classical, analytical, quantum, and relativistic mechanics.
-  - Astrophysics and orbital dynamics.
-  - Electromagnetic field theory.
-  - Nuclear physics, solid-state physics, and thermodynamics.
+FEATURES
+--------
+- Comprehensive physics simulation: classical, analytical, quantum, relativistic mechanics, astrophysics, electromagnetism, nuclear, solid-state, and thermodynamics.
+- Modular C codebase with GNU Scientific Library (GSL) and GNUnet support.
+- Peer-to-peer distributed scientific collaboration and computing.
+- Export to major data formats and automatic LaTeX reports.
+- Command-line interface (CLI) and modular compilation.
 
-* **Extensible Architecture**
-  - Modular C codebase with GNU Scientific Library (GSL) support.
-  - Runtime extensibility for user-defined physical models and technology projects.
-  - Project manager to create, organize, and maintain new models and workflows.
+COPYRIGHT
+---------
+See the file LICENSE for copying conditions.
 
-* **Collaboration and Workflow**
-  - Peer-to-peer distributed scientific collaboration and computing using GNUnet.
-  - Technology stacks for modular and reproducible creation of new scientific tools.
-
-* **Output and Documentation**
-  - Export to major physics and engineering data formats.
-  - Automatic LaTeX reports for simulations and technology results.
-  - Integrated code documentation and PDF manuals of included models.
-
-* **Interfaces and Usability**
-  - User interfaces gives a usefull CLI.
-  - Modular compilation: build only what you need.
-
-Installation
+INSTALLATION
 ------------
+To compile and install HOLOS, use the standard GNU procedure:
 
-1. Unpack the source code:
+  1. Unpack the source code:
+     $ tar xvf holos-x.y.tar.gz
+     $ cd holos-x.y
 
-   $ tar xvf holos-x.y.tar.gz
-   $ cd holos-x.y
+  2. Configure the package for your system:
+     $ ./configure [OPTIONS]
+     Common options:
+       --prefix=PREFIX         install architecture-independent files in PREFIX
+       --enable-optimizations  enable SIMD and compiler optimizations
+       --enable-debug          include debugging symbols
 
-2. Configure the build system:
+  3. Build and install:
+     $ make
+     $ make check      # optional: run tests
+     $ make install
 
-   $ ./configure [OPTIONS]
-
-   Typical options:
-
-   --prefix=PREFIX       install architecture-independent files in PREFIX
-   --enable-optimizations  enable SIMD and compiler optimizations
-   --enable-debug        include debugging symbols
-
-3. Build and install:
-
-   $ make
-   $ make check      # optional: run tests
-   $ make install
-
-Usage
+USAGE
 -----
 
-Holos provides a modular C API. Include the relevant headers in your
-programs:
+To use the HOLOS C API, include the relevant headers in your programs:
 
-   #include <holos/mechanics/classical/dynamics.h>
-   #include <holos/astro/celestial_mechanics.h>
+  #include <holos/mechanics/classical/dynamics.h>
+  #include <holos/astro/celestial_mechanics.h>
 
-Run simulations via command-line tools or integrate the API into your own
-scientific workflows. Each module contains functions for physical
-quantities, numerical integration, and vectorized computations using GSL.
+You can run simulations via the command-line interface or integrate the API into your own scientific workflows. Each module provides functions for physical quantities, numerical integration, and vectorized computations using GSL.
 
-Development
+DEVELOPMENT
 -----------
+HOLOS follows the GNU coding standards. The build system uses GNU Autotools:
+  - configure.ac defines the build configuration.
+  - Makefile.am contains compilation rules.
+  - Header files are in `include/`.
+  - Source files are in `src/`.
 
-Holos follows GNU coding standards. The build system uses Autotools:
+Contributions are welcome. Use the `unstable` branch for experimental features and submit pull requests for review.
 
-- configure.ac defines the build configuration.
-- Makefile.am contains compilation rules.
-- Header files reside in `include/`.
-- Source files reside in `src/`.
+REPORTING BUGS
+--------------
+Report bugs or suggestions to <holos@mail.com> or via the GitHub issues page:
+  https://github.com/4137314/holos
 
-Contributions are welcome. Use the `unstable` branch for experimental
-features, and submit pull requests for review.
-
-License
+AUTHORS
 -------
+4137314 <holos@mail.com>
 
-Holos is licensed under the GNU General Public License (GPL) version 3 or
-later. See LICENSE for details.
+SEE ALSO
+--------
+The full documentation is available in Texinfo format in the `doc/` directory. After installation, you can view it with:
+  info holos
 
-Contact
--------
-
-For questions, bug reports, or contributions:
-
-   - Email: holos@mail.com
-   - GitHub: https://github.com/4137314/holos
+For license details, see the file LICENSE.
 
