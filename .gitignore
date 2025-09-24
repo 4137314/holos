@@ -9,6 +9,9 @@
 *.obj
 *.dll
 *.dylib
+*.aux
+*.log
+*.toc
 
 # Ignore build directories
 /build/

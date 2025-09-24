@@ -1,0 +1,106 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename holos.info
+@settitle HOLOS: GNU Scientific Simulation and Engineering Framework
+@c %**end of header
+
+@copying
+HOLOS: GNU Scientific Simulation and Engineering Framework
+
+Copyright (C) 2025 4137314 (holos at mail.com)
+
+This manual is part of HOLOS.
+
+HOLOS is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+HOLOS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with HOLOS.  If not, see https://www.gnu.org/licenses/.
+@end copying
+
+@titlepage
+@title HOLOS: GNU Scientific Simulation and Engineering Framework
+@subtitle User and Developer Manual
+@author 4137314 (holos at mail.com)
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@chapter Introduction
+HOLOS is a modular, extensible GNU scientific software platform for simulation, physical modeling, and engineering design. It provides a collaborative environment for scientific computation, peer-to-peer data sharing, and distributed computing. The codebase is written in C and follows GNU standards.
+
+@menu
+* Overview::
+* Installation::
+* Usage::
+* Modules::
+* Development::
+* License::
+@end menu
+
+@node Overview
+@chapter Overview
+HOLOS supports a wide range of physics and engineering domains, including classical mechanics, quantum mechanics, relativity, thermodynamics, solid-state physics, nuclear physics, and more. The platform is organized into modular libraries and command-line tools, with support for peer-to-peer scientific collaboration using GNUnet.
+
+@node Installation
+@chapter Installation
+To install HOLOS, use the standard GNU procedure:
+@example
+$ ./configure
+$ make
+$ make check   # optional: run tests
+$ make install
+@end example
+
+Dependencies include the GNU Scientific Library (GSL), GNUnet (optional for P2P), and standard C libraries. See the README for details.
+
+@node Usage
+@chapter Usage
+After installation, you can use the main CLI tool:
+@example
+$ holos
+@end example
+
+You can also link against the HOLOS libraries in your own C programs. Include the relevant headers from @file{include/}.
+
+@node Modules
+@chapter Modules
+HOLOS is organized into the following main modules:
+
+@itemize @bullet
+@item @b{Physics:} Classical mechanics, quantum mechanics, relativity, thermodynamics, solid-state, nuclear, astrophysics, electromagnetism, and more.
+@item @b{AI:} Neural network models (MLP, CNN, RNN, GAN, Transformer) in @file{include/core/ai/}.
+@item @b{P2P:} Peer-to-peer scientific collaboration using GNUnet.
+@item @b{CLI:} Command-line interface for running simulations and managing models.
+@end itemize
+
+Each module is documented in its own header and source files. See the @file{include/} and @file{src/} directories for details.
+
+@node Development
+@chapter Development
+HOLOS follows the GNU coding standards. The build system uses GNU Autotools (@file{configure.ac}, @file{Makefile.am}).
+
+@itemize @bullet
+@item Source code: @file{src/}
+@item Headers: @file{include/}
+@item Documentation: @file{doc/}
+@item Tests: @file{tests/}
+@end itemize
+
+Contributions are welcome. Please submit patches or pull requests via the project repository.
+
+@node License
+@chapter License
+HOLOS is licensed under the GNU General Public License (GPL) version 3 or later. See the file @file{LICENSE} for details.
+
+@bye
