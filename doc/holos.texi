@@ -37,7 +37,19 @@ along with HOLOS.  If not, see https://www.gnu.org/licenses/.
 @contents
 
 @chapter Introduction
-HOLOS is a modular, extensible GNU scientific software platform for simulation, physical modeling, and engineering design. It provides a collaborative environment for scientific computation, peer-to-peer data sharing, and distributed computing. The codebase is written in C and follows GNU standards.
+
+HOLOS is a free, modular, and extensible GNU scientific software platform designed for advanced simulation, physical modeling, and engineering design. Its architecture enables researchers, engineers, and educators to build, analyze, and share complex scientific models with ease.
+
+Key features of HOLOS include:
+@itemize @bullet
+@item A comprehensive set of libraries for classical and modern physics, engineering, and computational science.
+@item Peer-to-peer (P2P) collaboration and distributed computing using GNUnet.
+@item Built-in support for artificial intelligence models and scientific machine learning.
+@item A command-line interface (CLI) for running simulations, managing models, and automating workflows.
+@item Strict adherence to GNU coding standards and free software principles.
+@end itemize
+
+HOLOS is written in C for performance and portability, and is intended to foster open, collaborative scientific research and reproducibility.
 
 @menu
 * Overview::
@@ -50,7 +62,18 @@ HOLOS is a modular, extensible GNU scientific software platform for simulation, 
 
 @node Overview
 @chapter Overview
-HOLOS supports a wide range of physics and engineering domains, including classical mechanics, quantum mechanics, relativity, thermodynamics, solid-state physics, nuclear physics, and more. The platform is organized into modular libraries and command-line tools, with support for peer-to-peer scientific collaboration using GNUnet.
+
+HOLOS provides a unified environment for scientific computing across a broad spectrum of domains:
+
+@itemize @bullet
+@item @b{Physics:} Libraries for classical mechanics, quantum mechanics, relativity, thermodynamics, solid-state physics, nuclear physics, astrophysics, electromagnetism, and more.
+@item @b{Engineering:} Tools for modeling, simulation, and analysis in various engineering fields.
+@item @b{Artificial Intelligence:} Neural network models (MLP, CNN, RNN, GAN, Transformer) for scientific and engineering applications.
+@item @b{Peer-to-Peer Collaboration:} Distributed data sharing and computation using GNUnet, enabling collaborative research and open science.
+@item @b{Extensibility:} Modular design allows users to add new models, algorithms, and interfaces easily.
+@end itemize
+
+The platform is organized into modular libraries and command-line tools, making it suitable for both standalone use and integration into larger workflows. HOLOS aims to bridge the gap between traditional scientific computing and modern collaborative, AI-driven research.
 
 @node Installation
 @chapter Installation
@@ -75,14 +98,197 @@ You can also link against the HOLOS libraries in your own C programs. Include th
 
 @node Modules
 @chapter Modules
+
 HOLOS is organized into the following main modules:
 
+@menu
+* Physics::
+* AI::
+* P2P::
+* CLI::
+@end menu
+
+@node Physics
+
+@section Physics
+The Physics module is divided into several submodules, each targeting a specific domain of physical science. Each submodule provides specialized headers and functions for simulation and modeling.
+
+@menu
+* Classical Mechanics::
+* Analytical Mechanics::
+* Continuum Mechanics::
+* Quantum Mechanics::
+* Relativistic Mechanics::
+* Astrophysics::
+* Electromagnetism::
+* Fields::
+* Nuclear Physics::
+* Solid State Physics::
+* Thermodynamics::
+@end menu
+
+@node Classical Mechanics
+@subsection Classical Mechanics
+@file{include/core/phys/mech/classical/}
+
+Provides functions and data structures for Newtonian mechanics, including:
 @itemize @bullet
-@item @b{Physics:} Classical mechanics, quantum mechanics, relativity, thermodynamics, solid-state, nuclear, astrophysics, electromagnetism, and more.
-@item @b{AI:} Neural network models (MLP, CNN, RNN, GAN, Transformer) in @file{include/core/ai/}.
-@item @b{P2P:} Peer-to-peer scientific collaboration using GNUnet.
-@item @b{CLI:} Command-line interface for running simulations and managing models.
+@item @file{dynamics.h} -- Equations of motion, force analysis
+@item @file{fluids.h} -- Fluid statics and dynamics
+@item @file{kinematics.h} -- Kinematic equations and motion analysis
+@item @file{oscillations.h} -- Harmonic and damped oscillators
+@item @file{statics.h} -- Static equilibrium and structures
 @end itemize
+
+@node Analytical Mechanics
+@subsection Analytical Mechanics
+@file{include/core/phys/mech/analytical/}
+
+Focuses on Lagrangian and Hamiltonian formulations:
+@itemize @bullet
+@item @file{lagrange.h} -- Lagrangian mechanics
+@item @file{hamilton.h} -- Hamiltonian mechanics
+@end itemize
+
+@node Continuum Mechanics
+@subsection Continuum Mechanics
+@file{include/core/phys/mech/continuum/}
+
+Models continuous media:
+@itemize @bullet
+@item @file{elasticity.h} -- Elasticity and deformation
+@item @file{fluid_dynamics.h} -- Advanced fluid dynamics
+@end itemize
+
+@node Quantum Mechanics
+@subsection Quantum Mechanics
+@file{include/core/phys/mech/quantum/}
+
+Quantum systems and wave mechanics:
+@itemize @bullet
+@item @file{particle_in_box.h} -- Particle in a box
+@item @file{quantum_harmonic_oscillator.h} -- Quantum oscillators
+@item @file{schrodinger.h} -- Schrödinger equation
+@end itemize
+
+@node Relativistic Mechanics
+@subsection Relativistic Mechanics
+@file{include/core/phys/mech/relativistic/}
+
+Special and general relativity:
+@itemize @bullet
+@item @file{relativistic_mech.h} -- Relativistic dynamics
+@end itemize
+
+@node Astrophysics
+@subsection Astrophysics
+@file{include/core/phys/astro/}
+
+Celestial and orbital mechanics:
+@itemize @bullet
+@item @file{celestial_mechanics.h} -- Celestial mechanics
+@item @file{orbital_dynamics.h} -- Orbital dynamics
+@end itemize
+
+@node Electromagnetism
+@subsection Electromagnetism
+@file{include/core/phys/em/}
+
+Electromagnetic theory and applications:
+@itemize @bullet
+@item @file{lorentz_forces.h} -- Lorentz force calculations
+@item @file{maxwell.c} -- Maxwell's equations
+@item @file{wave_equations.c} -- Electromagnetic waves
+@end itemize
+
+@node Fields
+@subsection Fields
+@file{include/core/phys/fields/}
+
+Field theory and quantum field theory:
+@itemize @bullet
+@item @file{qft.h} -- Quantum field theory basics
+@end itemize
+
+@node Nuclear Physics
+@subsection Nuclear Physics
+@file{include/core/phys/nuclear/}
+
+Nuclear structure and reactions:
+@itemize @bullet
+@item @file{fission_fusion.h} -- Fission and fusion processes
+@item @file{nuclear_decay.h} -- Radioactive decay
+@item @file{nuclear_forces.h} -- Nuclear forces
+@end itemize
+
+@node Solid State Physics
+@subsection Solid State Physics
+@file{include/core/phys/ss/}
+
+Crystalline and condensed matter physics:
+@itemize @bullet
+@item @file{band_structure.h} -- Band structure
+@item @file{crystal_lattice.h} -- Crystal lattices
+@item @file{phonons.h} -- Phonons and lattice vibrations
+@end itemize
+
+@node Thermodynamics
+@subsection Thermodynamics
+@file{include/core/phys/thermo/}
+
+Thermodynamic systems and heat transfer:
+@itemize @bullet
+@item @file{entropy.h} -- Entropy and statistical mechanics
+@item @file{heat_transfer.h} -- Heat transfer
+@item @file{thermodynamics.h} -- Thermodynamic laws and cycles
+@end itemize
+
+Each submodule header provides data structures and function prototypes for its domain. See the @file{include/core/phys/} directory for details and example usage.
+
+@node AI
+@section AI
+The AI module implements neural network models for scientific and engineering applications. Available models:
+
+@itemize @bullet
+@item @b{Multilayer Perceptron (MLP):} @file{include/core/ai/mlp.h}
+@item @b{Convolutional Neural Network (CNN):} @file{include/core/ai/cnn.h}
+@item @b{Recurrent Neural Network (RNN):} @file{include/core/ai/rnn.h}
+@item @b{Generative Adversarial Network (GAN):} @file{include/core/ai/gan.h}
+@item @b{Transformer:} @file{include/core/ai/transformer.h}
+@end itemize
+
+Each header defines the data structures and function signatures for its model. Example usage:
+
+@example
+#include <core/ai/mlp.h>
+// ... use MLP functions ...
+@end example
+
+@node P2P
+@section P2P
+The P2P module enables peer-to-peer scientific collaboration using GNUnet. It provides distributed data sharing and computation features for collaborative research.
+
+@itemize @bullet
+@item @b{Headers:} @file{include/core/p2p/p2p.h}
+@item @b{Source:} @file{src/p2p/p2p.c}
+@end itemize
+
+GNUnet is optional but recommended for distributed workflows. See the README for setup instructions.
+
+@node CLI
+@section CLI
+The CLI module provides a command-line interface for running simulations, managing models, and accessing HOLOS features.
+
+@itemize @bullet
+@item @b{Header:} @file{include/cli/cli.h}
+@item @b{Source:} @file{src/cli/cli.c}
+@end itemize
+
+Example usage:
+
+@example
+$ holos --help
+@end example
 
 Each module is documented in its own header and source files. See the @file{include/} and @file{src/} directories for details.
 
