@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @c %**start of header
 @setfilename holos.info
-@settitle HOLOS: GNU Scientific Simulation and Engineering Framework
+@settitle HOLOS: Scientific Simulation and Engineering Framework
 @c %**end of header
 
 @copying
