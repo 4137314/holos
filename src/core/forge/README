@@ -1,1 +1,2 @@
-Creatore di modelli fisici e Gestore di tecnologie ingergneristiche.
+Creatore di modelli fisici e Gestore di tecnologie ingergneristiche tipo database tecnologico che assegna automaticamente id a tecnologie definite dall'utente e le mette in un database senza avere 1000 file .c che bisogna stare attenti a mettere sempre nomi diversi, gestore di progetti e gestore del versionamento git delle tecnologie.
+Gestore delle query del database, inoltre possibile mettere nel database analisi, report, appunti, calcoli in generale.
