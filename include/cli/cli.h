@@ -30,12 +30,32 @@ extern "C" {
 #include <readline/readline.h>
 #include <readline/history.h>
 
-/* Structure to hold CLI options */
+
+/* Structure to hold CLI options and state */
 struct holos_cli_options {
 	int help;
 	int version;
+	int verbose;
+	int interactive;
 	char *config_file;
+	char *project_file;
+	char *subcommand;
+	char **args;
+	int arg_count;
 };
+
+/* Callback type for subcommand handlers */
+typedef int (*holos_cli_command_fn)(int argc, char **argv, struct holos_cli_options *opts);
+
+/* Structure for subcommand registration */
+struct holos_cli_command {
+	const char *name;
+	holos_cli_command_fn handler;
+	const char *description;
+};
+
+/* Register a subcommand handler */
+int holos_cli_register_command(const struct holos_cli_command *cmd);
 
 /* Parse command-line arguments using getopt_long */
 int holos_parse_options(int argc, char **argv, struct holos_cli_options *opts);
@@ -43,14 +63,20 @@ int holos_parse_options(int argc, char **argv, struct holos_cli_options *opts);
 /* Initialize readline for interactive CLI */
 void holos_cli_init(void);
 
-/* Run the main CLI loop */
+/* Run the main CLI loop (interactive or batch) */
 void holos_cli_loop(void);
 
+/* Dispatch subcommand */
+int holos_cli_dispatch(const char *subcommand, int argc, char **argv, struct holos_cli_options *opts);
+
 /* Print help message */
-void holos_cli_print_help(void);
+void holos_cli_print_help(const char *subcommand);
 
 /* Print version information */
 void holos_cli_print_version(void);
+
+/* Print error message and exit */
+void holos_cli_error(const char *msg);
 
 #ifdef __cplusplus
 }
