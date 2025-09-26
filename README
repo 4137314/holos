@@ -1,7 +1,7 @@
 HOLOS - Scientific Simulation and Engineering Modeling Framework
 ================================================================
 
-Copyright (C) 2025  4137314 <holos@mail.com>
+Copyright (C) 2025  4137314
 This file is part of HOLOS.
 
 HOLOS is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ along with HOLOS.  If not, see <https://www.gnu.org/licenses/>.
 -------------------------------------------------------------------------------
 * Name:        holos
 * Version:     0.1
-* Author:      4137314 <holos@mail.com>
+* Author:      4137314
 * Homepage:    https://github.com/4137314/holos
 -------------------------------------------------------------------------------
 
@@ -82,7 +82,7 @@ Contributions are welcome. Use the `unstable` branch for experimental features a
 
 REPORTING BUGS
 --------------
-Report bugs or suggestions to <holos@mail.com> or via the GitHub issues page:
+Report bugs or suggestions via the GitHub issues page:
   https://github.com/4137314/holos
 
 AUTHORS
