@@ -5,7 +5,7 @@
 @c %**end of header
 
 @copying
-HOLOS: GNU Scientific Simulation and Engineering Framework
+HOLOS: Scientific Simulation and Engineering Framework
 
 Copyright (C) 2025 4137314 (holos at mail.com)
 
@@ -26,9 +26,9 @@ along with HOLOS.  If not, see https://www.gnu.org/licenses/.
 @end copying
 
 @titlepage
-@title HOLOS: GNU Scientific Simulation and Engineering Framework
+@title HOLOS: Scientific Simulation and Engineering Framework
 @subtitle User and Developer Manual
-@author 4137314 (holos at mail.com)
+@author 4137314
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -140,6 +140,338 @@ Provides functions and data structures for Newtonian mechanics, including:
 @item @file{statics.h} -- Static equilibrium and structures
 @end itemize
 
+@node dynamics
+@subsubsection dynamics.h
+
+The file @code{dynamics.h} defines the Newtonian dynamics API for HOLOS.
+It provides data types and functions for simulating particles and rigid bodies
+under various forces, with support for integration, diagnostics, and I/O.
+
+@menu
+* Dynamics Types::
+* Memory Management::
+* System Configuration::
+* Force Computation::
+* Integration::
+* Diagnostics::
+* Utilities::
+@end menu
+
+
+@node Dynamics Types
+@subsubheading Types
+
+@deftp {Data type} dyn_particle_t
+Represents a particle with mass, position, velocity, force, charge,
+and optional metadata such as @code{id}, @code{tag}, or @code{userdata}.
+@end deftp
+
+@deftp {Data type} dyn_system_t
+Represents a system of particles, global parameters (e.g. gravitational
+constant), integration state, optional constraints, and user-defined data.
+@end deftp
+
+@deftp {Enum} dyn_integrator_t
+Specifies the integration method:
+
+@table @code
+@item DYN_INT_EULER
+Euler method.
+@item DYN_INT_VERLET
+Verlet integrator.
+@item DYN_INT_LEAPFROG
+Leapfrog integrator.
+@item DYN_INT_RK4
+Runge–Kutta 4th order.
+@item DYN_INT_GSL_ODE
+Use GSL ODE solver.
+@end table
+@end deftp
+
+
+@node Memory Management
+@subsubheading Memory Management
+
+@deftypefun {dyn_system_t *} dyn_system_alloc (size_t N)
+Allocate a new system with @var{N} particles.
+@end deftypefun
+
+@deftypefun void dyn_system_free (dyn_system_t *sys)
+Free a system and all associated memory.
+@end deftypefun
+
+@deftypefun void dyn_system_zero_forces (dyn_system_t *sys)
+Reset all forces in the system to zero.
+@end deftypefun
+
+
+@node System Configuration
+@subsubheading System Configuration
+
+@deftypefun void dyn_system_set_gravity (dyn_system_t *sys, double G)
+Set the gravitational constant of the system.
+@end deftypefun
+
+@deftypefun void dyn_system_set_softening (dyn_system_t *sys, bool use_softening, double eps)
+Enable or disable gravitational softening, with softening length @var{eps}.
+@end deftypefun
+
+@deftypefun void dyn_system_set_force_callback (dyn_system_t *sys, dyn_force_cb cb, void *userdata)
+Attach a custom force computation callback.
+@end deftypefun
+
+
+@node Force Computation
+@subsubheading Force Computation
+
+@deftypefun int dyn_system_compute_forces (dyn_system_t *sys)
+Compute all forces in the system using the callback or defaults.
+@end deftypefun
+
+@deftypefun int dyn_system_compute_pairwise_gravity (dyn_system_t *sys)
+Compute gravitational forces between all particle pairs.
+@end deftypefun
+
+
+@node Integration
+@subsubheading Integration
+
+@deftypefun int dyn_system_step (dyn_system_t *sys, double dt, dyn_integrator_t integrator)
+Perform an integration step of size @var{dt} with the selected method.
+@end deftypefun
+
+@deftypefun void dyn_system_set_time (dyn_system_t *sys, double t)
+Set the simulation time.
+@end deftypefun
+
+@deftypefun double dyn_system_get_time (const dyn_system_t *sys)
+Return the current simulation time.
+@end deftypefun
+
+
+@node Diagnostics
+@subsubheading Diagnostics
+
+@deftypefun double dyn_system_total_kinetic (const dyn_system_t *sys)
+Return the total kinetic energy.
+@end deftypefun
+
+@deftypefun double dyn_system_total_potential (const dyn_system_t *sys)
+Return the total potential energy.
+@end deftypefun
+
+@deftypefun double dyn_system_total_energy (const dyn_system_t *sys)
+Return the total energy (kinetic + potential).
+@end deftypefun
+
+@deftypefun int dyn_system_total_momentum (const dyn_system_t *sys, gsl_vector *out_p)
+Compute the total momentum into @var{out_p}.
+@end deftypefun
+
+@deftypefun int dyn_system_total_angular_momentum (const dyn_system_t *sys, gsl_vector *out_L)
+Compute the total angular momentum into @var{out_L}.
+@end deftypefun
+
+@deftypefun int dyn_system_center_of_mass (const dyn_system_t *sys, gsl_vector *out_r, gsl_vector *out_v)
+Compute center of mass position and velocity.
+@end deftypefun
+
+@deftypefun int dyn_system_moment_of_inertia (const dyn_system_t *sys, gsl_vector *origin, gsl_matrix *out_I)
+Compute the inertia tensor relative to @var{origin}.
+@end deftypefun
+
+@deftypefun int dyn_system_check_conservation (const dyn_system_t *sys, double tol)
+Check energy and momentum conservation with tolerance @var{tol}.
+@end deftypefun
+
+
+@node Utilities
+@subsubheading Utilities
+
+@deftypefun void dyn_system_print (const dyn_system_t *sys, FILE *f)
+Print the system state.
+@end deftypefun
+
+@deftypefun void dyn_particle_print (const dyn_particle_t *p, FILE *f)
+Print the state of a single particle.
+@end deftypefun
+
+@deftypefun int dyn_system_save (const dyn_system_t *sys, const char *filename)
+Save the system state to file.
+@end deftypefun
+
+@deftypefun {dyn_system_t *} dyn_system_load (const char *filename)
+Load a system state from file.
+@end deftypefun
+
+@deftypefun {dyn_system_t *} dyn_system_clone (const dyn_system_t *src)
+Deep copy of a system.
+@end deftypefun
+
+@deftypefun int dyn_system_add_particle (dyn_system_t *sys, const dyn_particle_t *p)
+Add a particle to the system.
+@end deftypefun
+
+@deftypefun int dyn_system_remove_particle (dyn_system_t *sys, size_t idx)
+Remove a particle by index.
+@end deftypefun
+
+@deftypefun {dyn_particle_t *} dyn_system_find_particle (dyn_system_t *sys, int id)
+Find a particle by ID.
+@end deftypefun
+
+@deftypefun int dyn_system_apply_constraints (dyn_system_t *sys)
+Apply constraints if present.
+@end deftypefun
+
+
+@node fluids
+@subsubsection fluids.h
+
+The file @code{fluids.h} defines the API for classical fluid mechanics in HOLOS.
+It provides data types and functions for simulating incompressible and
+compressible flows, solving Navier–Stokes equations, and computing
+diagnostic quantities such as Reynolds and Mach numbers.  
+All functions use GNU Scientific Library (GSL) vectors and matrices.
+
+@menu
+* Fluid Types::
+* Core Equations::
+* Diagnostic Functions::
+* Utilities::
+* System Management::
+@end menu
+
+
+@node Fluid Types
+@subsubheading Types
+
+@deftp {Data type} fluid_element
+Represents a single fluid element with density, pressure, velocity vector,
+temperature, viscosity, thermal conductivity, internal energy, and optional metadata.
+@end deftp
+
+@deftp {Data type} fluid_system
+Represents a collection of fluid elements with simulation time,
+volume, boundaries, and optional user data.
+@end deftp
+
+
+@node Core Equations
+@subsubheading Core Fluid Equations
+
+@deftypefun int fluid_continuity_equation (gsl_vector *rho_time_deriv, const gsl_vector *rho, const gsl_matrix *v)
+Compute the continuity equation
+@tex
+$\partial \rho/\partial t + \nabla \cdot (\rho v) = 0$.
+@end tex
+@end deftypefun
+
+@deftypefun int fluid_navier_stokes (gsl_matrix *v_time_deriv, const gsl_matrix *v, const gsl_vector *p, const gsl_vector *rho, double mu, const gsl_matrix *f)
+Compute the incompressible Navier–Stokes equations:
+@tex
+$\rho(\partial v/\partial t + (v\cdot\nabla)v) = -\nabla p + \mu\nabla^2 v + f$.
+@end tex
+@end deftypefun
+
+
+@node Diagnostic Functions
+@subsubheading Diagnostics and Dimensionless Numbers
+
+@deftypefun double fluid_bernoulli (double rho, double v, double g, double h)
+Compute Bernoulli’s equation for incompressible, inviscid flow.
+@end deftypefun
+
+@deftypefun double fluid_reynolds_number (double rho, double v, double L, double mu)
+Compute the Reynolds number: Re = (ρ v L) / μ.
+@end deftypefun
+
+@deftypefun double fluid_mach_number (double v, double c)
+Compute the Mach number: Ma = v / c.
+@end deftypefun
+
+@deftypefun double fluid_speed_of_sound (double gamma, double p, double rho)
+Compute the speed of sound: c = sqrt(γ p / ρ).
+@end deftypefun
+
+@deftypefun int fluid_vorticity (gsl_matrix *vorticity, const gsl_matrix *v)
+Compute the vorticity field from the velocity field.
+@end deftypefun
+
+@deftypefun int fluid_divergence (gsl_vector *div, const gsl_matrix *v)
+Compute the divergence of the velocity field.
+@end deftypefun
+
+
+@node Utilities
+@subsubheading Element Utilities
+
+@deftypefun {fluid_element *} fluid_element_alloc (size_t dim)
+Allocate a new fluid element with velocity vector dimension @var{dim}.
+@end deftypefun
+
+@deftypefun void fluid_element_free (fluid_element *elem)
+Free a fluid element and its resources.
+@end deftypefun
+
+@deftypefun void fluid_element_print (const fluid_element *elem, FILE *f)
+Print the properties of a fluid element to file or stdout.
+@end deftypefun
+
+
+@node System Management
+@subsubheading System Utilities
+
+@deftypefun {fluid_system *} fluid_system_alloc (size_t n, size_t dim)
+Initialize a system with @var{n} fluid elements and velocity dimension @var{dim}.
+@end deftypefun
+
+@deftypefun void fluid_system_free (fluid_system *sys)
+Free a system and all its elements.
+@end deftypefun
+
+@deftypefun void fluid_system_print (const fluid_system *sys, FILE *f)
+Print system properties to file or stdout.
+@end deftypefun
+
+@deftypefun {fluid_system *} fluid_system_clone (const fluid_system *src)
+Create a deep copy of a fluid system.
+@end deftypefun
+
+@deftypefun int fluid_system_add_element (fluid_system *sys, const fluid_element *elem)
+Add a new fluid element to the system, returning its index.
+@end deftypefun
+
+@deftypefun int fluid_system_remove_element (fluid_system *sys, size_t idx)
+Remove a fluid element by index.
+@end deftypefun
+
+@deftypefun {fluid_element *} fluid_system_find_element (fluid_system *sys, const char *tag)
+Find an element by its tag string.
+@end deftypefun
+
+@deftypefun int fluid_system_apply_boundaries (fluid_system *sys)
+Apply boundary conditions if present.
+@end deftypefun
+
+@node kinematics
+@subsubsection kinematics.h
+
+The file @code{kinematics.h} defines the API for classical Newtonian kinematics
+in HOLOS.  
+It provides functions and data structures for positions, velocities,
+accelerations, trajectories, and basic integration.  
+All functions use GNU Scientific Library (GSL) vectors and matrices.
+
+
+
+@node oscillations
+@subsubsection oscillations.h
+Covers simple harmonic motion, damped oscillations, and driven oscillatory systems.
+@node statics
+@subsubsection statics.h
+Focuses on forces in static systems, including beams, trusses, and other structures.
+
 @node Analytical Mechanics
 @subsection Analytical Mechanics
 @file{include/core/phys/mech/analytical/}
@@ -149,6 +481,12 @@ Focuses on Lagrangian and Hamiltonian formulations:
 @item @file{lagrange.h} -- Lagrangian mechanics
 @item @file{hamilton.h} -- Hamiltonian mechanics
 @end itemize
+
+@node hamilton
+@subsubsection hamilton.h
+
+@node lagrange
+@subsubsection lagrange.h
 
 @node Continuum Mechanics
 @subsection Continuum Mechanics
