@@ -12,6 +12,10 @@
 *.aux
 *.log
 *.toc
+* .fn
+* .fns
+* .tp
+* .tps
 
 # Ignore build directories
 /build/
